@@ -6,7 +6,7 @@
     <title>Gallery - Wanderlust Travel</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body id="gallery-page">
 
     <nav>
         <ul>
@@ -21,32 +21,26 @@
     <main>
         <div class="container">
             <h1>Destination Gallery</h1>
-            <p>Get inspired by these stunning locations.</p>
+            <p>Get inspired by these stunning locations. Click any image to enlarge.</p>
 
             <div class="gallery">
-                <figure>
-                    
+                
+                <figure class="gallery-item" data-large="https://placehold.co/800x600/3498db/ffffff?text=Maldives" data-caption="The serene waters of the Maldives.">
                     <img src="https://placehold.co/300x200/3498db/ffffff?text=Maldives" alt="Overwater bungalows in the Maldives">
                     <figcaption>The serene waters of the Maldives.</figcaption>
                 </figure>
                 
-                <figure>
-                    
+                <figure class="gallery-item" data-large="https://placehold.co/800x600/2ecc71/ffffff?text=Nepal" data-caption="The majestic Himalayas, Nepal.">
                     <img src="https://placehold.co/300x200/2ecc71/ffffff?text=Nepal" alt="Snow-capped mountains in Nepal">
                     <figcaption>The majestic Himalayas, Nepal.</figcaption>
                 </figure>
 
-                <figure>
-                    
-
-[Image of the Colosseum in Rome]
-
+                <figure class="gallery-item" data-large="https://placehold.co/800x600/e74c3c/ffffff?text=Rome" data-caption="Ancient history in Rome, Italy.">
                     <img src="https://placehold.co/300x200/e74c3c/ffffff?text=Rome" alt="The Colosseum in Rome, Italy">
                     <figcaption>Ancient history in Rome, Italy.</figcaption>
                 </figure>
 
-                <figure>
-                    
+                <figure class="gallery-item" data-large="https://placehold.co/800x600/f39c12/ffffff?text=Tokyo" data-caption="The vibrant lights of Tokyo, Japan.">
                     <img src="https://placehold.co/300x200/f39c12/ffffff?text=Tokyo" alt="Tokyo city skyline at night">
                     <figcaption>The vibrant lights of Tokyo, Japan.</figcaption>
                 </figure>
@@ -54,9 +48,18 @@
         </div>
     </main>
 
+    <div id="modal-backdrop" class="modal-backdrop">
+        <div id="modal-content" class="modal-content">
+            <span id="modal-close" class="modal-close">&times;</span>
+            <img id="modal-image" src="" alt="Enlarged destination image">
+            <figcaption id="modal-caption"></figcaption>
+        </div>
+    </div>
+
     <footer>
         <p>&copy; 2025 Wanderlust Travel. All rights reserved.</p>
     </footer>
 
+    <script src="main.js"></script>
 </body>
 </html>
