@@ -1,4 +1,4 @@
-
+// Wait for the DOM to be fully loaded before running scripts
 document.addEventListener('DOMContentLoaded', () => {
 
     /**
@@ -11,8 +11,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const navLinks = document.querySelectorAll('nav ul li a');
 
     navLinks.forEach(link => {
-        // Use .includes() to match the link even if it's just '/' for index.html
-        if (currentPage.includes(link.getAttribute('href'))) {
+        // Use .includes() to match the link href
+        // This handles both "/index.html" and "/"
+        if (currentPage.endsWith(link.getAttribute('href'))) {
             link.classList.add('active');
         }
     });
@@ -26,16 +27,17 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     if (document.body.id === 'packages-page') {
         const packages = [
-            { id: 'beach', destination: 'Maldives', durationDays: 7, basePrice: 2500, season: 'Peak' },
-            { id: 'mountain', destination: 'Nepal', durationDays: 10, basePrice: 1800, season: 'Off' },
-            { id: 'ancient', destination: 'Rome, Italy', durationDays: 5, basePrice: 2200, season: 'Peak' },
-            { id: 'city', destination: 'Tokyo, Japan', durationDays: 7, basePrice: 3000, season: 'Shoulder' }
+            { id: 'beach', destination: 'Maldives', durationDays: 7, basePrice: 200000, season: 'Peak' },
+            { id: 'mountain', destination: 'Nepal', durationDays: 10, basePrice: 145000, season: 'Off' },
+            { id: 'ancient', destination: 'Rome, Italy', durationDays: 5, basePrice: 175000, season: 'Peak' },
+            { id: 'city', destination: 'Tokyo, Japan', durationDays: 7, basePrice: 240000, season: 'Shoulder' }
         ];
 
         // Function to calculate price based on season
         function calculateFinalPrice(package) {
             let finalPrice = package.basePrice;
             
+            // Use switch for seasonal logic
             switch (package.season) {
                 case 'Peak':
                     finalPrice *= 1.25; // 25% surcharge
@@ -44,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     finalPrice *= 0.85; // 15% discount
                     break;
                 case 'Shoulder':
+                    // No change
                     break;
             }
             return finalPrice;
@@ -52,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Function to render the table
         function renderPackageTable() {
             const tableBody = document.getElementById('packages-tbody');
-            tableBody.innerHTML = ''; 
+            tableBody.innerHTML = ''; // Clear existing content
 
             // Loop through packages and create table rows
             packages.forEach(pkg => {
@@ -63,8 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td>${pkg.id.charAt(0).toUpperCase() + pkg.id.slice(1)}</td>
                     <td>${pkg.destination}</td>
                     <td>${pkg.durationDays} Days</td>
-                    <td>$${pkg.basePrice.toFixed(2)}</td>
-                    <td>$${finalPrice.toFixed(2)}</td>
+                    <td>₹${pkg.basePrice.toFixed(2)}</td>
+                    <td>₹${finalPrice.toFixed(2)}</td>
                 `;
                 tableBody.appendChild(row);
             });
@@ -82,11 +85,12 @@ document.addEventListener('DOMContentLoaded', () => {
      * ------------------------------------------------
      */
     if (document.body.id === 'booking-page') {
+        // Base prices object (must match select <option> values)
         const packageBasePrices = {
-            'beach': 2500,
-            'mountain': 1800,
-            'ancient': 2200,
-            'city': 3000
+            'beach': 200000,
+            'mountain': 145000,
+            'ancient': 175000,
+            'city': 240000
         };
 
         const form = document.querySelector('.booking-form');
@@ -102,7 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function validateForm() {
             // Check for empty required fields
-            if (!nameInput.value || !emailInput.value || !startDateInput.value || !endDateInput.value || !packageSelect.value) {
+            if (!nameInput.value || !emailInput.value || !startDateInput.value || !endDateInput.value || !packageSelect.value || !guestsInput.value) {
                 return false;
             }
 
@@ -113,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return false;
             }
             
-            return true; 
+            return true; // All good
         }
 
         function calculateTotalPrice() {
@@ -123,6 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const guests = parseInt(guestsInput.value);
             if (guests > 2) {
                 finalPrice *= 1.2; // +20% for more than 2 guests
+            } else if (guests < 1) {
+                finalPrice = 0; // Cannot have less than 1 guest
             }
 
             // 2. Apply promo code discount
@@ -132,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Update display
-            totalDisplay.textContent = `Estimated Total: $${finalPrice.toFixed(2)}`;
+            totalDisplay.textContent = `Estimated Total: ₹${finalPrice.toFixed(2)}`;
             
             // 3. Enable/disable submit button
             submitButton.disabled = !validateForm();
@@ -170,6 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalImage.setAttribute('alt', captionText);
                 modalCaption.textContent = captionText;
 
+                // Update style via JS to show modal
                 modalBackdrop.style.display = 'flex';
             });
         });

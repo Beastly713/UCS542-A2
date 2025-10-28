@@ -5,10 +5,16 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
-
+    
+    /* --- Sticky Footer Fix --- */
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    min-height: 100vh; /* vh = viewport height */
+}
+
+/* --- Sticky Footer Fix --- */
+main {
+    flex-grow: 1; /* This tells the main section to grow and fill empty space */
 }
 
 .container {
@@ -19,10 +25,6 @@ body {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-main {
-    flex-grow: 1; /* This tells the main section to grow and fill empty space */
 }
 
 /* --- Navigation Bar --- */
@@ -52,6 +54,14 @@ nav ul li a {
 
 nav ul li a:hover {
     text-decoration: underline;
+}
+
+/* --- NEW: Active Nav Link --- */
+nav ul li a.active {
+    background-color: #ffffff;
+    color: #005a9c;
+    padding: 10px 15px;
+    border-radius: 4px;
 }
 
 /* --- Page Headers --- */
@@ -126,6 +136,25 @@ h1, h2 {
     background-color: #218838;
 }
 
+/* --- NEW: Booking Form Extras --- */
+#estimated-total {
+    font-size: 1.25em;
+    font-weight: bold;
+    color: #005a9c;
+    margin-top: 20px;
+    text-align: center;
+    background-color: #f0f8ff;
+    padding: 15px;
+    border-radius: 4px;
+}
+
+/* Style for disabled button */
+.booking-form button:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
+}
+
+
 /* --- Gallery Page --- */
 .gallery {
     display: flex;
@@ -141,6 +170,8 @@ h1, h2 {
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    /* NEW: Make gallery images clickable */
+    cursor: pointer;
 }
 
 .gallery img {
@@ -156,6 +187,57 @@ h1, h2 {
     padding: 10px;
     font-style: italic;
     color: #555;
+}
+
+/* --- NEW: Gallery Modal --- */
+.modal-backdrop {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90vh;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #aaa;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modal-close:hover {
+    color: #333;
+}
+
+.modal-content img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Keep image within viewport */
+    object-fit: contain;
+}
+
+.modal-content figcaption {
+    text-align: center;
+    padding-top: 10px;
+    font-size: 1.1em;
+    color: #333;
 }
 
 /* --- About Page --- */
