@@ -5,6 +5,10 @@ body {
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 .container {
@@ -15,6 +19,10 @@ body {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+main {
+    flex-grow: 1; /* This tells the main section to grow and fill empty space */
 }
 
 /* --- Navigation Bar --- */
